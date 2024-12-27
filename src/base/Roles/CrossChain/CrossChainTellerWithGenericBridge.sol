@@ -162,6 +162,8 @@ abstract contract CrossChainTellerWithGenericBridge is TellerWithMultiAssetSuppo
      *         message has been confirmed as legit.`
      */
     function _completeMessageReceive(bytes32 messageId, uint256 message) internal {
+        if (isPaused) revert TellerWithMultiAssetSupport__Paused();
+
         MessageLib.Message memory m = message.uint256ToMessage();
 
         // Mint shares to message.to
